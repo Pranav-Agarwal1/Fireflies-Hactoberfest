@@ -1,0 +1,12 @@
+{
+  "repository": "demo/local-fixture",
+  "warnings": ["Synthetic hackathon fixture, not a real GitHub discussion."],
+  "items": [
+    {
+      "id": "demo-decision-1",
+      "url": "https://example.org/synthetic-decision/1",
+      "text": "Synthetic fixture: We decided to keep the fetch retries argument for transient network failures. Replacing retries with timeout alone was rejected because timeout does not retry failures.",
+      "created_at": "2025-01-01T00:00:00Z"
+    }
+  ]
+}
