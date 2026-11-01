@@ -1,0 +1,61 @@
+{
+  "branch": "main",
+  "base": "7db79b32d52dfdd31fca55b11745c87e333a25ca",
+  "head": "472765fc9f90a9d7cd4afed92c26afe752567a5e",
+  "warning": true,
+  "incomplete": false,
+  "findings": [
+    {
+      "kind": "documentation_drift",
+      "confidence": "verified_static",
+      "summary": "fetch example no longer binds to its declared signature: got an unexpected keyword argument 'retries'",
+      "evidence": [
+        {
+          "path": "README.md",
+          "sha": "472765fc9f90a9d7cd4afed92c26afe752567a5e",
+          "line": 5,
+          "quote": "fetch('https://example.org', retries=3)"
+        },
+        {
+          "path": "client.py",
+          "sha": "472765fc9f90a9d7cd4afed92c26afe752567a5e",
+          "line": 1,
+          "quote": "def fetch(url, timeout=30):"
+        },
+        {
+          "path": "client.py",
+          "sha": "7db79b32d52dfdd31fca55b11745c87e333a25ca",
+          "line": 1,
+          "quote": "def fetch(url, retries=3):"
+        }
+      ],
+      "limitation": "Static declared-signature check; dynamic rebinding is not evaluated."
+    },
+    {
+      "kind": "documentation_drift",
+      "summary": "The signature of the `fetch` function in `client.py` has changed from accepting `retries` to accepting `timeout`, but the documentation in `README.md` still shows usage with `retries=3`.",
+      "confidence": "model_suggested",
+      "evidence": [
+        {
+          "id": "code-head",
+          "type": "code_head",
+          "truncated": false,
+          "path": "client.py",
+          "sha": "472765fc9f90a9d7cd4afed92c26afe752567a5e",
+          "line": 1,
+          "quote": "def fetch(url, timeout=30):"
+        },
+        {
+          "id": "doc-head-0",
+          "type": "doc_head",
+          "truncated": false,
+          "path": "README.md",
+          "sha": "472765fc9f90a9d7cd4afed92c26afe752567a5e",
+          "line": 5,
+          "quote": "fetch('https://example.org', retries=3)"
+        }
+      ]
+    }
+  ],
+  "report": "report.md"
+}

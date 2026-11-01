@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "created_at": "2026-10-31T21:02:24.077780+00:00",
+  "repository_path": "release-merge-demo",
+  "base": "7db79b32d52dfdd31fca55b11745c87e333a25ca",
+  "head": "472765fc9f90a9d7cd4afed92c26afe752567a5e",
+  "branch": "main",
+  "model_plan": {
+    "hardware": {
+      "system": "override",
+      "machine": "arm64",
+      "ram_gb": 16.0,
+      "unified_memory": true,
+      "vram_gb": null
+    },
+    "tier": "low",
+    "model": "gemma4:latest",
+    "context": 8192,
+    "quantization": "operator_supplied",
+    "budget_gb": 10.0,
+    "override": true,
+    "note": "Capacity estimate, not a benchmark. Close other memory-heavy apps. Explicit model overrides require your own memory validation.",
+    "actual_quantization": "Q4_K_M"
+  },
+  "mode": "local_model_and_static",
+  "discovery": {
+    "documents": [
+      "README.md"
+    ],
+    "configuration_files": [],
+    "linked_candidates": [],
+    "warnings": [],
+    "scope": "Tracked documentation on main only. External links require explicit future configuration."
+  },
+  "findings": [
+    {
+      "kind": "documentation_drift",
+      "confidence": "verified_static",
+      "summary": "fetch example no longer binds to its declared signature: got an unexpected keyword argument 'retries'",
+      "evidence": [
+        {
+          "path": "README.md",
+          "sha": "472765fc9f90a9d7cd4afed92c26afe752567a5e",
+          "line": 5,
+          "quote": "fetch('https://example.org', retries=3)"
+        },
+        {
+          "path": "client.py",
+          "sha": "472765fc9f90a9d7cd4afed92c26afe752567a5e",
+          "line": 1,
+          "quote": "def fetch(url, timeout=30):"
+        },
+        {
+          "path": "client.py",
+          "sha": "7db79b32d52dfdd31fca55b11745c87e333a25ca",
+          "line": 1,
+          "quote": "def fetch(url, retries=3):"
+        }
+      ],
+      "limitation": "Static declared-signature check; dynamic rebinding is not evaluated."
+    },
+    {
+      "kind": "documentation_drift",
+      "summary": "The signature of the `fetch` function in `client.py` has changed from accepting `retries` to accepting `timeout`, but the documentation in `README.md` still shows usage with `retries=3`.",
+      "confidence": "model_suggested",
+      "evidence": [
+        {
+          "id": "code-head",
+          "type": "code_head",
+          "truncated": false,
+          "path": "client.py",
+          "sha": "472765fc9f90a9d7cd4afed92c26afe752567a5e",
+          "line": 1,
+          "quote": "def fetch(url, timeout=30):"
+        },
+        {
+          "id": "doc-head-0",
+          "type": "doc_head",
+          "truncated": false,
+          "path": "README.md",
+          "sha": "472765fc9f90a9d7cd4afed92c26afe752567a5e",
+          "line": 5,
+          "quote": "fetch('https://example.org', retries=3)"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "coverage": {
+    "documents_read": 1,
+    "code_files_read": 1,
+    "model_packets": 1,
+    "skipped": [],
+    "limits": {
+      "files": 30,
+      "docs": 200,
+      "packets": 40
+    },
+    "scope": "Changed files, retrieved documentation, and supplied discussions only; not whole-repo proof."
+  },
+  "changed_files": [
+    "client.py"
+  ],
+  "status": "completed"
+}

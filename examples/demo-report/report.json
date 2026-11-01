@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "created_at": "2026-10-31T21:31:09.780850+00:00",
+  "repository_path": "release-merge-demo",
+  "base": "7db79b32d52dfdd31fca55b11745c87e333a25ca",
+  "head": "472765fc9f90a9d7cd4afed92c26afe752567a5e",
+  "branch": "main",
+  "model_plan": {
+    "hardware": null,
+    "tier": "static_only",
+    "model": "disabled",
+    "context": 0,
+    "quantization": "none",
+    "budget_gb": 0,
+    "override": false
+  },
+  "mode": "static_only",
+  "discovery": {
+    "documents": [
+      "README.md"
+    ],
+    "configuration_files": [],
+    "linked_candidates": [],
+    "warnings": [],
+    "scope": "Tracked documentation on main only. External links require explicit future configuration."
+  },
+  "findings": [
+    {
+      "kind": "documentation_drift",
+      "confidence": "verified_static",
+      "summary": "fetch example no longer binds to its declared signature: got an unexpected keyword argument 'retries'",
+      "evidence": [
+        {
+          "path": "README.md",
+          "sha": "472765fc9f90a9d7cd4afed92c26afe752567a5e",
+          "line": 5,
+          "quote": "fetch('https://example.org', retries=3)"
+        },
+        {
+          "path": "client.py",
+          "sha": "472765fc9f90a9d7cd4afed92c26afe752567a5e",
+          "line": 1,
+          "quote": "def fetch(url, timeout=30):"
+        },
+        {
+          "path": "client.py",
+          "sha": "7db79b32d52dfdd31fca55b11745c87e333a25ca",
+          "line": 1,
+          "quote": "def fetch(url, retries=3):"
+        }
+      ],
+      "limitation": "Static declared-signature check; dynamic rebinding is not evaluated.",
+      "code_changes": [
+        {
+          "path": "client.py",
+          "base": "7db79b32d52dfdd31fca55b11745c87e333a25ca",
+          "head": "472765fc9f90a9d7cd4afed92c26afe752567a5e",
+          "patch": "diff --git a/client.py b/client.py\nindex f2a0cbf..ffb8c50 100644\n--- a/client.py\n+++ b/client.py\n@@ -1,2 +1,2 @@\n-def fetch(url, retries=3):\n+def fetch(url, timeout=30):\n     return url"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "coverage": {
+    "documents_read": 1,
+    "code_files_read": 1,
+    "model_packets": 0,
+    "skipped": [],
+    "limits": {
+      "files": 30,
+      "docs": 200,
+      "packets": 40
+    },
+    "scope": "Changed files, retrieved documentation, and supplied discussions only; not whole-repo proof."
+  },
+  "changed_files": [
+    "client.py"
+  ],
+  "status": "completed"
+}
